@@ -3,7 +3,21 @@ import const
 from telebot import types
 from geopy.distance import vincenty
 
-bot = telebot.TeleBot(const.API_TOKEN)
+API_TOKEN = '886849554:AAFbuhXN1f3qm36Uz-lDX7o01wWVQR6-_0c'
+
+LIBRARY = ({
+               'title': 'ХПИ библиотка',
+               'lonm': 36.249873,
+               'latm': 49.999177,
+               'address': 'г.Харьков , у. Кирпичова, д. 2'
+           }, {
+               'title': 'ХПИ библиотка',
+               'lonm': 49.999177,
+               'latm': 36.249873,
+               'address': 'г.Харьков , у. Рымарская, д. 2'
+           })
+
+bot = telebot.TeleBot(API_TOKEN)
 
 markup_menu = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
 btn_lib = types.KeyboardButton('ХПИ библиотека', request_location=True)
@@ -88,7 +102,7 @@ def lib_location(message):
     print('Широта {} долгота {}'.format(lat, lon))
 
     distance = []
-    for m in const.LIBRARY:
+    for m in LIBRARY:
         result = vincenty((m['latm'], m['lonm']), (lat, lon)).kilometers
         distance.append(result)
     index = distance.index(min(distance))
